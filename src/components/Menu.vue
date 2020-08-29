@@ -1,13 +1,13 @@
 <template>
   <div class="pageCard">
     <div class="mainCard">
-      <div class="bodyCard" v-for="mainCard in 15" :key="mainCard.id"
+      <div class="bodyCard" v-for="mainCard in getMenu" :key="mainCard.id"
       @click="cardSelect(mainCard.id)">
         <div class="cardImage">
-          <img src="../assets/logo.png" alt="food-drink">
+          <img :src="mainCard.image" alt="menu">
         </div>
         <div class="cardTitle">
-          <h6> Cumi Tepung </h6>
+          <h6> {{mainCard.name}} </h6>
         </div>
       </div>
     </div>
@@ -27,7 +27,15 @@
 
 <script>
 export default {
-  name: 'Menu'
+  name: 'Menu',
+  computed: {
+    getMenu () {
+      return this.$store.state.menu
+    }
+  },
+  mounted () {
+    this.$store.dispatch('getApi', this.$store.state.currentPage)
+  }
 }
 </script>
 
