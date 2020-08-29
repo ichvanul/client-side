@@ -6,11 +6,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    menu: []
+    menu: [],
+    selectedItem: []
   },
   mutations: {
     GET_MENU (state, data) {
       state.menu = data
+    },
+    selectedItem (state, { item, count }) {
+      const items = state.selectedItem
+        .find((clicked) => clicked.item.id === item.id)
+      if (!items) {
+        state.selectedItem.push({ item, count })
+      }
     }
   },
   actions: {
@@ -20,6 +28,9 @@ export default new Vuex.Store({
           context.commit('GET_MENU', res.data.result)
         })
     }
+  },
+  getters: {
+    countCart: (state) => state.selectedItem.length
   },
   modules: {
   }

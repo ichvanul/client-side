@@ -5,23 +5,25 @@
         <p>1</p>
         <p>View Table</p>
       </div>
-      <div class="ready-content">
-        <p>Cah Taoge</p>
-        <p>Rp. 15.000</p>
-      </div>
-      <div class="ready-content">
-        <p>Nasi Putih</p>
-        <p>2x</p>
-        <p>Rp. 0</p>
-      </div>
-      <div class="ready-content">
-        <p>Gurame Asam Manis</p>
-        <p>Rp. 69.000</p>
-      </div>
-      <div class="ready-content">
-        <p>Es Jeruk</p>
-        <p>2x</p>
-        <p>Rp. 20.000</p>
+      <div v-for="item in selectedItem" :key="item.id">
+        <div class="ready-content">
+          <p>Cah Taoge</p>
+          <p>Rp. 15.000</p>
+        </div>
+        <div class="ready-content">
+          <p>Nasi Putih</p>
+          <p>2x</p>
+          <p>Rp. 0</p>
+        </div>
+        <div class="ready-content">
+          <p>Gurame Asam Manis</p>
+          <p>Rp. 69.000</p>
+        </div>
+        <div class="ready-content">
+          <p>Es Jeruk</p>
+          <p>2x</p>
+          <p>Rp. 20.000</p>
+        </div>
       </div>
       <div class="ready-total">
         <p>Sub Total</p>
@@ -39,8 +41,27 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'ReadyCart'
+  name: 'ReadyCart',
+  data () {
+    return {
+      total: 0,
+      getOrder: []
+    }
+  },
+  computed: {
+    isEmpty () {
+      return this.selectedItem.length === 0
+    },
+    selectedItem () {
+      return this.$store.state.selectedItem
+    },
+    ...mapGetters([
+      'countCart'
+    ])
+  }
 }
 </script>
 

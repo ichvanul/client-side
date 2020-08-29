@@ -2,7 +2,7 @@
   <div class="pageCard">
     <div class="mainCard">
       <div class="bodyCard" v-for="mainCard in getMenu" :key="mainCard.id"
-      @click="cardSelect(mainCard.id)">
+      @click="isSelected(id)">
         <div class="cardImage">
           <img :src="mainCard.image" alt="menu">
         </div>
@@ -28,9 +28,19 @@
 <script>
 export default {
   name: 'Menu',
+  data () {
+    return {
+      selectedMenu: []
+    }
+  },
   computed: {
     getMenu () {
       return this.$store.state.menu
+    }
+  },
+  methods: {
+    isSelected (item) {
+      this.$store.commit('selectedItem', { item, count: 1 })
     }
   },
   mounted () {
